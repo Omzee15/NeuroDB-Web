@@ -1,51 +1,78 @@
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Bot, Bookmark, Code2, Database, Filter, FileDown, Download, Sparkles } from "lucide-react";
+import { FeatureCard } from "@/components/FeatureCard";
+import aiPromptsImg from "@/assets/features/ai-prompts.jpg";
+import savedQueriesImg from "@/assets/features/saved-queries.jpg";
+import dynamicVariablesImg from "@/assets/features/dynamic-variables.jpg";
+import databaseViewerImg from "@/assets/features/database-viewer.jpg";
+import quickFiltersImg from "@/assets/features/quick-filters.jpg";
+import exportOptionsImg from "@/assets/features/export-options.jpg";
+import oneClickDownloadImg from "@/assets/features/one-click-download.jpg";
+import queryOptimizationImg from "@/assets/features/query-optimization.jpg";
+import collaborationImg from "@/assets/features/collaboration.jpg";
 
 const features = [
   {
     icon: Bot,
     title: "Context-Aware AI Prompts",
     description: "Generate SQL from plain English — NeuroDB understands your schema instantly.",
+    image: aiPromptsImg,
+    videoUrl: "https://cdn.pixabay.com/video/2023/05/02/159977-821742408_large.mp4",
   },
   {
     icon: Bookmark,
     title: "Saved Queries & Snippets",
     description: "Reuse your best queries and code snippets anytime.",
+    image: savedQueriesImg,
+    videoUrl: "https://cdn.pixabay.com/video/2024/03/26/205470-925843995_large.mp4",
   },
   {
     icon: Code2,
     title: "Dynamic Variables",
     description: "Create parameterized queries for faster automation.",
+    image: dynamicVariablesImg,
+    videoUrl: "https://cdn.pixabay.com/video/2023/05/02/159977-821742408_large.mp4",
   },
   {
     icon: Database,
     title: "Smart Database Viewer",
     description: "Visualize schemas, tables, and relationships intuitively.",
+    image: databaseViewerImg,
+    videoUrl: "https://cdn.pixabay.com/video/2024/02/12/200272-912869803_large.mp4",
   },
   {
     icon: Filter,
     title: "Quick Filters",
     description: "Instantly apply filters without manual SQL.",
+    image: quickFiltersImg,
+    videoUrl: "https://cdn.pixabay.com/video/2024/03/26/205470-925843995_large.mp4",
   },
   {
     icon: FileDown,
     title: "Flexible Export Options",
     description: "Export data in CSV, JSON, or Excel effortlessly.",
+    image: exportOptionsImg,
+    videoUrl: "https://cdn.pixabay.com/video/2023/05/02/159977-821742408_large.mp4",
   },
   {
     icon: Download,
     title: "One-Click Downloads",
     description: "Download tables or databases with one click.",
+    image: oneClickDownloadImg,
+    videoUrl: "https://cdn.pixabay.com/video/2024/02/12/200272-912869803_large.mp4",
   },
   {
     icon: Sparkles,
     title: "AI Query Optimization",
     description: "Automatically optimize your queries for better performance.",
+    image: queryOptimizationImg,
+    videoUrl: "https://cdn.pixabay.com/video/2024/03/26/205470-925843995_large.mp4",
   },
   {
     icon: Database,
     title: "Real-Time Collaboration",
     description: "Share queries and work together with your team seamlessly.",
+    image: collaborationImg,
+    videoUrl: "https://cdn.pixabay.com/video/2023/05/02/159977-821742408_large.mp4",
   },
 ];
 
@@ -53,7 +80,7 @@ export const FeaturesSection = () => {
   return (
     <section className="py-24 px-6 relative">
       <div className="container max-w-7xl mx-auto">
-        <div className="text-center mb-16">
+        <div className="text-center mb-16 animate-fade-in">
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
             Everything you need for{" "}
             <span className="text-primary">intelligent</span> database management
@@ -65,22 +92,7 @@ export const FeaturesSection = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {features.map((feature, index) => (
-            <Card 
-              key={index}
-              className="gradient-card border-primary/10 hover:border-primary/30 transition-smooth hover:scale-105 group"
-            >
-              <CardHeader>
-                <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-smooth">
-                  <feature.icon className="h-6 w-6 text-primary" />
-                </div>
-                <CardTitle className="text-xl">{feature.title}</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <CardDescription className="text-base leading-relaxed">
-                  {feature.description}
-                </CardDescription>
-              </CardContent>
-            </Card>
+            <FeatureCard key={index} {...feature} index={index} />
           ))}
         </div>
       </div>
