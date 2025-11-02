@@ -1,14 +1,11 @@
-import { Bot, Bookmark, Code2, Database, Filter, FileDown, Download, Sparkles } from "lucide-react";
+import { Bot, Bookmark, Database, Filter, Download, Sparkles } from "lucide-react";
 import { FeatureCard } from "@/components/FeatureCard";
 import aiPromptsImg from "@/assets/features/ai-prompts.jpg";
 import savedQueriesImg from "@/assets/features/saved-queries.jpg";
-import dynamicVariablesImg from "@/assets/features/dynamic-variables.jpg";
 import databaseViewerImg from "@/assets/features/database-viewer.jpg";
 import quickFiltersImg from "@/assets/features/quick-filters.jpg";
 import exportOptionsImg from "@/assets/features/export-options.jpg";
-import oneClickDownloadImg from "@/assets/features/one-click-download.jpg";
 import queryOptimizationImg from "@/assets/features/query-optimization.jpg";
-import collaborationImg from "@/assets/features/collaboration.jpg";
 
 const features = [
   {
@@ -20,17 +17,10 @@ const features = [
   },
   {
     icon: Bookmark,
-    title: "Saved Queries & Snippets",
-    description: "Reuse your best queries and code snippets anytime.",
+    title: "Saved Queries & Variables",
+    description: "Reuse queries and create parameterized variables with easy keyboard shortcuts.",
     image: savedQueriesImg,
     videoUrl: "https://cdn.pixabay.com/video/2024/03/26/205470-925843995_large.mp4",
-  },
-  {
-    icon: Code2,
-    title: "Dynamic Variables",
-    description: "Create parameterized queries for faster automation.",
-    image: dynamicVariablesImg,
-    videoUrl: "https://cdn.pixabay.com/video/2023/05/02/159977-821742408_large.mp4",
   },
   {
     icon: Database,
@@ -47,18 +37,11 @@ const features = [
     videoUrl: "https://cdn.pixabay.com/video/2024/03/26/205470-925843995_large.mp4",
   },
   {
-    icon: FileDown,
-    title: "Flexible Export Options",
-    description: "Export data in CSV, JSON, or Excel effortlessly.",
+    icon: Download,
+    title: "Export & Download",
+    description: "Export data in CSV, JSON, Excel or download entire tables with one click.",
     image: exportOptionsImg,
     videoUrl: "https://cdn.pixabay.com/video/2023/05/02/159977-821742408_large.mp4",
-  },
-  {
-    icon: Download,
-    title: "One-Click Downloads",
-    description: "Download tables or databases with one click.",
-    image: oneClickDownloadImg,
-    videoUrl: "https://cdn.pixabay.com/video/2024/02/12/200272-912869803_large.mp4",
   },
   {
     icon: Sparkles,
@@ -66,13 +49,6 @@ const features = [
     description: "Automatically optimize your queries for better performance.",
     image: queryOptimizationImg,
     videoUrl: "https://cdn.pixabay.com/video/2024/03/26/205470-925843995_large.mp4",
-  },
-  {
-    icon: Database,
-    title: "Real-Time Collaboration",
-    description: "Share queries and work together with your team seamlessly.",
-    image: collaborationImg,
-    videoUrl: "https://cdn.pixabay.com/video/2023/05/02/159977-821742408_large.mp4",
   },
 ];
 
@@ -90,7 +66,7 @@ export const FeaturesSection = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
           {features.map((feature, index) => (
             <FeatureCard key={index} {...feature} index={index} />
           ))}
