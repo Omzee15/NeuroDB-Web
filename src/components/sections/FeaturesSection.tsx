@@ -1,6 +1,6 @@
 import { Bot, Bookmark, Database, Filter, Download, Search } from "lucide-react";
 import { FeatureCard } from "@/components/FeatureCard";
-import aiPromptsImg from "@/assets/features/ai-prompts.jpg";
+import aiGeneratorImg from "@/assets/features/ai-generator.png";
 import savedQueriesImg from "@/assets/features/saved-queries.png";
 import databaseViewerImg from "@/assets/features/database-viewer-new.png";
 import quickFiltersImg from "@/assets/features/quick-filters-new.png";
@@ -10,9 +10,9 @@ import quickSearchImg from "@/assets/features/quick-search.png";
 const features = [
   {
     icon: Bot,
-    title: "Context-Aware AI Prompts",
+    title: "Context-Aware Query Generation",
     description: "Generate SQL from plain English — NeuroDB understands your schema instantly.",
-    image: aiPromptsImg,
+    image: aiGeneratorImg,
     videoUrl: "https://cdn.pixabay.com/video/2023/05/02/159977-821742408_large.mp4",
   },
   {

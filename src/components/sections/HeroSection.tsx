@@ -1,6 +1,7 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Github } from "lucide-react";
+import heroMainImg from "@/assets/hero-main.png";
 
 export const HeroSection = () => {
   const scrollToDownload = () => {
@@ -64,7 +65,7 @@ export const HeroSection = () => {
           <div className="mt-16 w-full max-w-5xl">
             <div className="relative rounded-2xl overflow-hidden border border-primary/20 shadow-2xl glow-subtle transition-smooth hover:glow-primary">
               <img
-                src="https://images.unsplash.com/photo-1556761175-4b46a572b786"
+                src={heroMainImg}
                 alt="NeuroDB Dashboard Interface"
                 className="w-full h-auto"
                 loading="eager"
