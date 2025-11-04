@@ -1,11 +1,11 @@
 import { Bot, Bookmark, Database, Filter, Download, Search } from "lucide-react";
 import { FeatureCard } from "@/components/FeatureCard";
 import aiPromptsImg from "@/assets/features/ai-prompts.jpg";
-import savedQueriesImg from "@/assets/features/saved-queries.jpg";
-import databaseViewerImg from "@/assets/features/database-viewer.jpg";
-import quickFiltersImg from "@/assets/features/quick-filters.jpg";
-import exportOptionsImg from "@/assets/features/export-options.jpg";
-import queryOptimizationImg from "@/assets/features/query-optimization.jpg";
+import savedQueriesImg from "@/assets/features/saved-queries.png";
+import databaseViewerImg from "@/assets/features/database-viewer.png";
+import quickFiltersImg from "@/assets/features/quick-filters.png";
+import exportOptionsImg from "@/assets/features/export-options.png";
+import quickSearchImg from "@/assets/features/quick-search.png";
 
 const features = [
   {
@@ -47,7 +47,7 @@ const features = [
     icon: Search,
     title: "Quick Results Search",
     description: "Find data instantly with lightning-fast search across all tables.",
-    image: queryOptimizationImg,
+    image: quickSearchImg,
     videoUrl: "https://cdn.pixabay.com/video/2024/03/26/205470-925843995_large.mp4",
   },
 ];
