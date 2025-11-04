@@ -1,4 +1,4 @@
-import { Bot, Bookmark, Database, Filter, Download, Sparkles } from "lucide-react";
+import { Bot, Bookmark, Database, Filter, Download, Search } from "lucide-react";
 import { FeatureCard } from "@/components/FeatureCard";
 import aiPromptsImg from "@/assets/features/ai-prompts.jpg";
 import savedQueriesImg from "@/assets/features/saved-queries.jpg";
@@ -44,9 +44,9 @@ const features = [
     videoUrl: "https://cdn.pixabay.com/video/2023/05/02/159977-821742408_large.mp4",
   },
   {
-    icon: Sparkles,
-    title: "AI Query Optimization",
-    description: "Automatically optimize your queries for better performance.",
+    icon: Search,
+    title: "Quick Results Search",
+    description: "Find data instantly with lightning-fast search across all tables.",
     image: queryOptimizationImg,
     videoUrl: "https://cdn.pixabay.com/video/2024/03/26/205470-925843995_large.mp4",
   },
