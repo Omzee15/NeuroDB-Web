@@ -1,6 +1,10 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Monitor, Apple, Terminal, Download } from "lucide-react";
+import { Monitor, Apple, Terminal, Download, Cpu } from "lucide-react";
+
+// GitHub release base URL
+const RELEASE_BASE_URL = "https://github.com/Omzee15/NeuroDB-releases/releases/download/V1.1";
+const VERSION = "1.0.0";
 
 const downloads = [
   {
@@ -8,7 +12,7 @@ const downloads = [
     title: "Windows",
     description: "For Windows 10 and later",
     fileType: ".exe",
-    link: "#",
+    link: `${RELEASE_BASE_URL}/NeuroDB-Setup-${VERSION}.exe`,
   },
   {
     icon: Apple,
@@ -16,13 +20,14 @@ const downloads = [
     description: "For macOS 11 and later",
     fileType: ".dmg",
     link: "#",
+    isMac: true,
   },
   {
     icon: Terminal,
     title: "Linux",
     description: "For Ubuntu, Fedora, and more",
     fileType: ".AppImage",
-    link: "#",
+    link: `${RELEASE_BASE_URL}/NeuroDB-${VERSION}.AppImage`,
   },
 ];
 
@@ -55,15 +60,38 @@ export const DownloadSection = () => {
                 </CardDescription>
               </CardHeader>
               <CardContent className="text-center">
-                <Button 
-                  className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-semibold transition-smooth glow-subtle hover:glow-primary"
-                  asChild
-                >
-                  <a href={download.link}>
-                    <Download className="mr-2 h-4 w-4" />
-                    Download {download.fileType}
-                  </a>
-                </Button>
+                {download.isMac ? (
+                  <div className="space-y-3">
+                    <Button 
+                      className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-semibold transition-smooth glow-subtle hover:glow-primary"
+                      asChild
+                    >
+                      <a href={`${RELEASE_BASE_URL}/NeuroDB-${VERSION}-arm64.dmg`}>
+                        <Cpu className="mr-2 h-4 w-4" />
+                        Apple Silicon
+                      </a>
+                    </Button>
+                    <Button 
+                      className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-semibold transition-smooth glow-subtle hover:glow-primary"
+                      asChild
+                    >
+                      <a href={`${RELEASE_BASE_URL}/NeuroDB-${VERSION}.dmg`}>
+                        <Download className="mr-2 h-4 w-4" />
+                        Intel Mac
+                      </a>
+                    </Button>
+                  </div>
+                ) : (
+                  <Button 
+                    className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-semibold transition-smooth glow-subtle hover:glow-primary"
+                    asChild
+                  >
+                    <a href={download.link}>
+                      <Download className="mr-2 h-4 w-4" />
+                      Download {download.fileType}
+                    </a>
+                  </Button>
+                )}
               </CardContent>
             </Card>
           ))}
