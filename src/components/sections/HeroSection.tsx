@@ -1,9 +1,29 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Github } from "lucide-react";
-import heroMainImg from "@/assets/hero-main.png";
+import { useState, useEffect } from "react";
+import heroCarousel1 from "@/assets/hero-carousel-1.png";
+import heroCarousel2 from "@/assets/hero-carousel-2.png";
+import heroCarousel3 from "@/assets/hero-carousel-3.png";
 
 export const HeroSection = () => {
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  
+  const images = [heroCarousel1, heroCarousel2, heroCarousel3];
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setIsTransitioning(true);
+      setTimeout(() => {
+        setCurrentImageIndex((prev) => (prev + 1) % images.length);
+        setIsTransitioning(false);
+      }, 500);
+    }, 4000);
+
+    return () => clearInterval(interval);
+  }, [images.length]);
+
   const scrollToDownload = () => {
     document.getElementById('download')?.scrollIntoView({ behavior: 'smooth' });
   };
@@ -61,16 +81,49 @@ export const HeroSection = () => {
             </Button>
           </div>
 
-          {/* Hero Image */}
+          {/* Hero Image Carousel */}
           <div className="mt-16 w-full max-w-5xl">
             <div className="relative rounded-2xl overflow-hidden border border-primary/20 shadow-2xl glow-subtle transition-smooth hover:glow-primary">
-              <img
-                src={heroMainImg}
-                alt="NeuroDB Dashboard Interface"
-                className="w-full h-auto"
-                loading="eager"
-              />
+              <div className="relative w-full h-auto">
+                {images.map((img, index) => (
+                  <img
+                    key={index}
+                    src={img}
+                    alt={`NeuroDB Dashboard Interface - View ${index + 1}`}
+                    className={`w-full h-auto transition-opacity duration-500 ${
+                      index === currentImageIndex
+                        ? isTransitioning
+                          ? "opacity-0"
+                          : "opacity-100"
+                        : "opacity-0 absolute inset-0"
+                    }`}
+                    loading={index === 0 ? "eager" : "lazy"}
+                  />
+                ))}
+              </div>
               <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent pointer-events-none" />
+              
+              {/* Carousel indicators */}
+              <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-2 z-10">
+                {images.map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => {
+                      setIsTransitioning(true);
+                      setTimeout(() => {
+                        setCurrentImageIndex(index);
+                        setIsTransitioning(false);
+                      }, 500);
+                    }}
+                    className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                      index === currentImageIndex
+                        ? "bg-primary w-8"
+                        : "bg-primary/30 hover:bg-primary/50"
+                    }`}
+                    aria-label={`Go to slide ${index + 1}`}
+                  />
+                ))}
+              </div>
             </div>
           </div>
         </div>
