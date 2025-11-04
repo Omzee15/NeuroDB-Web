@@ -2,8 +2,8 @@ import { Bot, Bookmark, Database, Filter, Download, Search } from "lucide-react"
 import { FeatureCard } from "@/components/FeatureCard";
 import aiPromptsImg from "@/assets/features/ai-prompts.jpg";
 import savedQueriesImg from "@/assets/features/saved-queries.png";
-import databaseViewerImg from "@/assets/features/database-viewer.png";
-import quickFiltersImg from "@/assets/features/quick-filters.png";
+import databaseViewerImg from "@/assets/features/database-viewer-new.png";
+import quickFiltersImg from "@/assets/features/quick-filters-new.png";
 import exportOptionsImg from "@/assets/features/export-options.png";
 import quickSearchImg from "@/assets/features/quick-search.png";
 
