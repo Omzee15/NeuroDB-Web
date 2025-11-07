@@ -33,7 +33,7 @@ export const Footer = () => {
               <BookOpen className="h-5 w-5" />
             </a>
             <a 
-              href="https://omg15.netlify.app" 
+              href="https://omzee.codes" 
               target="_blank" 
               rel="noopener noreferrer"
               className="text-muted-foreground hover:text-primary transition-smooth text-sm font-medium"
