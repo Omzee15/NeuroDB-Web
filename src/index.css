@@ -8,43 +8,44 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222 47% 11%;
+    /* NeuroDB Theme - Warm Beige/Cream with Blue Accents */
+    --background: 40 30% 94%;  /* Warm beige/cream background */
+    --foreground: 30 15% 25%;  /* Dark brown text */
 
-    --card: 0 0% 100%;
-    --card-foreground: 222 47% 11%;
+    --card: 40 40% 98%;  /* Light cream for cards */
+    --card-foreground: 30 15% 25%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222 47% 11%;
+    --popover: 40 40% 98%;
+    --popover-foreground: 30 15% 25%;
 
-    --primary: 189 94% 43%;
+    --primary: 207 90% 54%;  /* Blue accent color */
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 210 40% 96%;
-    --secondary-foreground: 222 47% 11%;
+    --secondary: 40 30% 90%;  /* Light beige */
+    --secondary-foreground: 30 15% 25%;
 
-    --muted: 210 40% 96%;
-    --muted-foreground: 215 20% 40%;
+    --muted: 40 25% 88%;  /* Muted beige */
+    --muted-foreground: 30 10% 45%;  /* Muted text */
 
-    --accent: 189 94% 43%;
+    --accent: 207 90% 54%;  /* Blue accent */
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 214 32% 91%;
-    --input: 214 32% 91%;
-    --ring: 189 94% 43%;
+    --border: 40 20% 85%;  /* Subtle beige border */
+    --input: 40 30% 96%;  /* Light cream input background */
+    --ring: 207 90% 54%;  /* Blue focus ring */
 
-    --radius: 0.75rem;
+    --radius: 0.5rem;
 
     /* Gradient tokens */
-    --gradient-hero: linear-gradient(135deg, hsl(189 94% 43% / 0.05) 0%, hsl(0 0% 100%) 100%);
-    --gradient-card: linear-gradient(180deg, hsl(0 0% 100%) 0%, hsl(210 40% 98%) 100%);
+    --gradient-hero: linear-gradient(135deg, hsl(207 90% 54% / 0.08) 0%, hsl(40 30% 94%) 100%);
+    --gradient-card: linear-gradient(180deg, hsl(40 40% 98%) 0%, hsl(40 35% 96%) 100%);
     
     /* Glow effects */
-    --glow-primary: 0 0 40px hsl(189 94% 43% / 0.2);
-    --glow-subtle: 0 0 20px hsl(189 94% 43% / 0.1);
+    --glow-primary: 0 0 40px hsl(207 90% 54% / 0.25);
+    --glow-subtle: 0 0 20px hsl(207 90% 54% / 0.12);
     
     /* Transitions */
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);

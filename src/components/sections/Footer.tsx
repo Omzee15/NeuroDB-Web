@@ -1,4 +1,4 @@
-import { Github, Twitter, BookOpen } from "lucide-react";
+import { Github, BookOpen } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 
 export const Footer = () => {
@@ -15,7 +15,7 @@ export const Footer = () => {
 
           <div className="flex items-center gap-6">
             <a 
-              href="https://github.com" 
+              href="https://github.com/Omzee15" 
               target="_blank" 
               rel="noopener noreferrer"
               className="text-muted-foreground hover:text-primary transition-smooth"
@@ -24,20 +24,22 @@ export const Footer = () => {
               <Github className="h-5 w-5" />
             </a>
             <a 
-              href="https://twitter.com" 
+              href="https://github.com/Omzee15/NeuroDB-releases" 
               target="_blank" 
               rel="noopener noreferrer"
-              className="text-muted-foreground hover:text-primary transition-smooth"
-              aria-label="Twitter"
-            >
-              <Twitter className="h-5 w-5" />
-            </a>
-            <a 
-              href="#" 
               className="text-muted-foreground hover:text-primary transition-smooth"
               aria-label="Documentation"
             >
               <BookOpen className="h-5 w-5" />
+            </a>
+            <a 
+              href="https://omg15.netlify.app" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="text-muted-foreground hover:text-primary transition-smooth text-sm font-medium"
+              aria-label="Meet the Developer"
+            >
+              Meet the Developer
             </a>
           </div>
         </div>
