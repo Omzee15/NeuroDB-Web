@@ -1,37 +1,83 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Monitor, Apple, Terminal, Download, Cpu } from "lucide-react";
+import { useState, useEffect } from "react";
 
-// GitHub release base URL
-const RELEASE_BASE_URL = "https://github.com/Omzee15/NeuroDB-releases/releases/download/V1.1";
-const VERSION = "1.0.0";
+interface GitHubAsset {
+  name: string;
+  browser_download_url: string;
+}
 
-const downloads = [
-  {
-    icon: Monitor,
-    title: "Windows",
-    description: "For Windows 10 and later",
-    fileType: ".exe",
-    link: `${RELEASE_BASE_URL}/NeuroDB-Setup-${VERSION}.exe`,
-  },
-  {
-    icon: Apple,
-    title: "macOS",
-    description: "For macOS 11 and later",
-    fileType: ".dmg",
-    link: "#",
-    isMac: true,
-  },
-  {
-    icon: Terminal,
-    title: "Linux",
-    description: "For Ubuntu, Fedora, and more",
-    fileType: ".AppImage",
-    link: `${RELEASE_BASE_URL}/NeuroDB-${VERSION}.AppImage`,
-  },
-];
+interface GitHubRelease {
+  tag_name: string;
+  assets: GitHubAsset[];
+}
 
 export const DownloadSection = () => {
+  const [downloadLinks, setDownloadLinks] = useState<{
+    windows: string;
+    macIntel: string;
+    macAppleSilicon: string;
+    linux: string;
+  } | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchLatestRelease = async () => {
+      try {
+        const response = await fetch('https://api.github.com/repos/Omzee15/NeuroDB-releases/releases/latest');
+        const release: GitHubRelease = await response.json();
+        
+        const assets = release.assets;
+        const links = {
+          windows: assets.find(asset => asset.name.includes('Setup') && asset.name.endsWith('.exe'))?.browser_download_url || '#',
+          macIntel: assets.find(asset => asset.name.endsWith('.dmg') && !asset.name.includes('arm64'))?.browser_download_url || '#',
+          macAppleSilicon: assets.find(asset => asset.name.includes('arm64') && asset.name.endsWith('.dmg'))?.browser_download_url || '#',
+          linux: assets.find(asset => asset.name.endsWith('.AppImage'))?.browser_download_url || '#',
+        };
+        
+        setDownloadLinks(links);
+      } catch (error) {
+        console.error('Failed to fetch latest release:', error);
+        // Fallback to hardcoded links if API fails
+        setDownloadLinks({
+          windows: 'https://github.com/Omzee15/NeuroDB-releases/releases/latest',
+          macIntel: 'https://github.com/Omzee15/NeuroDB-releases/releases/latest',
+          macAppleSilicon: 'https://github.com/Omzee15/NeuroDB-releases/releases/latest',
+          linux: 'https://github.com/Omzee15/NeuroDB-releases/releases/latest',
+        });
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchLatestRelease();
+  }, []);
+
+  const downloads = [
+    {
+      icon: Monitor,
+      title: "Windows",
+      description: "For Windows 10 and later",
+      fileType: ".exe",
+      link: downloadLinks?.windows || '#',
+    },
+    {
+      icon: Apple,
+      title: "macOS",
+      description: "For macOS 11 and later",
+      fileType: ".dmg",
+      link: "#",
+      isMac: true,
+    },
+    {
+      icon: Terminal,
+      title: "Linux",
+      description: "For Ubuntu, Fedora, and more",
+      fileType: ".AppImage",
+      link: downloadLinks?.linux || '#',
+    },
+  ];
   return (
     <section id="download" className="py-24 px-6 relative">
       <div className="container max-w-6xl mx-auto">
@@ -65,19 +111,21 @@ export const DownloadSection = () => {
                     <Button 
                       className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-semibold transition-smooth glow-subtle hover:glow-primary"
                       asChild
+                      disabled={isLoading || !downloadLinks?.macAppleSilicon}
                     >
-                      <a href={`${RELEASE_BASE_URL}/NeuroDB-${VERSION}-arm64.dmg`}>
+                      <a href={downloadLinks?.macAppleSilicon || '#'}>
                         <Cpu className="mr-2 h-4 w-4" />
-                        Apple Silicon
+                        {isLoading ? 'Loading...' : 'Apple Silicon'}
                       </a>
                     </Button>
                     <Button 
                       className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-semibold transition-smooth glow-subtle hover:glow-primary"
                       asChild
+                      disabled={isLoading || !downloadLinks?.macIntel}
                     >
-                      <a href={`${RELEASE_BASE_URL}/NeuroDB-${VERSION}.dmg`}>
+                      <a href={downloadLinks?.macIntel || '#'}>
                         <Download className="mr-2 h-4 w-4" />
-                        Intel Mac
+                        {isLoading ? 'Loading...' : 'Intel Mac'}
                       </a>
                     </Button>
                   </div>
@@ -85,10 +133,11 @@ export const DownloadSection = () => {
                   <Button 
                     className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-semibold transition-smooth glow-subtle hover:glow-primary"
                     asChild
+                    disabled={isLoading || download.link === '#'}
                   >
                     <a href={download.link}>
                       <Download className="mr-2 h-4 w-4" />
-                      Download {download.fileType}
+                      {isLoading ? 'Loading...' : `Download ${download.fileType}`}
                     </a>
                   </Button>
                 )}
