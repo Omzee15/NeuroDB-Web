@@ -15,7 +15,7 @@ export const Footer = () => {
 
           <div className="flex items-center gap-6">
             <a 
-              href="https://github.com/Omzee15" 
+              href="https://github.com/Omzee15/NeuroDB" 
               target="_blank" 
               rel="noopener noreferrer"
               className="text-muted-foreground hover:text-primary transition-smooth"
