@@ -1,4 +1,3 @@
-import { Github, BookOpen } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 
 export const Footer = () => {
@@ -13,25 +12,7 @@ export const Footer = () => {
             </p>
           </div>
 
-          <div className="flex items-center gap-6">
-            <a 
-              href="https://github.com/Omzee15/NeuroDB" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="text-muted-foreground hover:text-primary transition-smooth"
-              aria-label="GitHub"
-            >
-              <Github className="h-5 w-5" />
-            </a>
-            <a 
-              href="https://github.com/Omzee15/NeuroDB-releases" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="text-muted-foreground hover:text-primary transition-smooth"
-              aria-label="Documentation"
-            >
-              <BookOpen className="h-5 w-5" />
-            </a>
+          <div className="flex flex-col items-center md:items-end gap-3">
             <a 
               href="https://omzee.codes" 
               target="_blank" 
@@ -40,6 +21,13 @@ export const Footer = () => {
               aria-label="Meet the Developer"
             >
               Meet the Developer
+            </a>
+            <a 
+              href="mailto:omzee.codes@gmail.com" 
+              className="text-muted-foreground hover:text-primary transition-smooth text-sm font-medium"
+              aria-label="Contact Support"
+            >
+              Contact Support
             </a>
           </div>
         </div>

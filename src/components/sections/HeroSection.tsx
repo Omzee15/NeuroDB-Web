@@ -1,6 +1,6 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Github } from "lucide-react";
 import { useState, useEffect } from "react";
 import heroCarousel1 from "@/assets/hero-carousel-1.png";
 import heroCarousel2 from "@/assets/hero-carousel-2.png";
@@ -67,6 +67,17 @@ export const HeroSection = () => {
             >
               Download Now
               <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+            </Button>
+            <Button 
+              size="lg" 
+              variant="outline"
+              asChild
+              className="group border-primary/20 hover:border-primary/50 hover:bg-primary/10 font-semibold px-8 transition-smooth"
+            >
+              <a href="https://github.com/Omzee15/NeuroDB" target="_blank" rel="noopener noreferrer">
+                <Github className="mr-2 h-5 w-5" />
+                View on GitHub
+              </a>
             </Button>
           </div>
 

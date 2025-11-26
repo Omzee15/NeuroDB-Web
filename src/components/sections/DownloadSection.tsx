@@ -1,6 +1,7 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Monitor, Apple, Terminal, Download, Cpu } from "lucide-react";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { Monitor, Apple, Terminal, Download, Cpu, AlertTriangle } from "lucide-react";
 import { useState, useEffect } from "react";
 
 interface GitHubAsset {
@@ -144,6 +145,19 @@ export const DownloadSection = () => {
               </CardContent>
             </Card>
           ))}
+        </div>
+
+        <div className="mt-12 max-w-3xl mx-auto">
+          <Alert className="border-red-500 bg-red-500/10">
+            <AlertTriangle className="h-5 w-5 text-red-500" />
+            <AlertTitle className="text-red-500 font-bold text-lg">Important for Mac Users</AlertTitle>
+            <AlertDescription className="text-red-400 mt-2">
+              After installation, please run this command in Terminal to use NeuroDB successfully:
+              <code className="block mt-3 p-3 bg-gray-800/80 rounded-md text-gray-200 font-mono text-sm border border-gray-600">
+                sudo xattr -rd com.apple.quarantine /Applications/NeuroDB.app
+              </code>
+            </AlertDescription>
+          </Alert>
         </div>
 
         <div className="mt-12 text-center">
