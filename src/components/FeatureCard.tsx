@@ -14,6 +14,7 @@ interface FeatureCardProps {
 export const FeatureCard = ({ icon: Icon, title, description, image, videoUrl, index }: FeatureCardProps) => {
   const [isHovered, setIsHovered] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
+  const [isVideoReady, setIsVideoReady] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
   const cardRef = useRef<HTMLDivElement>(null);
 
@@ -37,7 +38,9 @@ export const FeatureCard = ({ icon: Icon, title, description, image, videoUrl, i
   useEffect(() => {
     if (videoRef.current) {
       if (isHovered) {
-        videoRef.current.play();
+        videoRef.current.play().catch(() => {
+          setIsVideoReady(false);
+        });
       } else {
         videoRef.current.pause();
         videoRef.current.currentTime = 0;
@@ -58,9 +61,7 @@ export const FeatureCard = ({ icon: Icon, title, description, image, videoUrl, i
         <img
           src={image}
           alt={title}
-          className={`w-full h-full object-cover transition-opacity duration-300 ${
-            isHovered ? "opacity-0" : "opacity-100"
-          }`}
+          className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-[1.02]"
         />
         <video
           ref={videoRef}
@@ -68,8 +69,10 @@ export const FeatureCard = ({ icon: Icon, title, description, image, videoUrl, i
           loop
           muted
           playsInline
+          onCanPlay={() => setIsVideoReady(true)}
+          onError={() => setIsVideoReady(false)}
           className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-300 ${
-            isHovered ? "opacity-100" : "opacity-0"
+            isHovered && isVideoReady ? "opacity-100" : "opacity-0"
           }`}
         />
         <div className="absolute inset-0 bg-gradient-to-t from-card via-card/50 to-transparent opacity-60" />
