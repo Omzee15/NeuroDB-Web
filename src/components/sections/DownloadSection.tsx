@@ -1,8 +1,10 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { Monitor, Apple, Terminal, Download, Cpu, AlertTriangle } from "lucide-react";
+import { Monitor, Apple, Terminal, Download, Cpu, AlertTriangle, Copy, Check } from "lucide-react";
 import { useState, useEffect } from "react";
+
+const XATTR_COMMAND = "sudo xattr -rd com.apple.quarantine /Applications/NeuroDB.app";
 
 interface GitHubAsset {
   name: string;
@@ -22,6 +24,17 @@ export const DownloadSection = () => {
     linux: string;
   } | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [isCopied, setIsCopied] = useState(false);
+
+  const handleCopyCommand = async () => {
+    try {
+      await navigator.clipboard.writeText(XATTR_COMMAND);
+      setIsCopied(true);
+      setTimeout(() => setIsCopied(false), 2000);
+    } catch (error) {
+      console.error('Failed to copy command:', error);
+    }
+  };
 
   useEffect(() => {
     const fetchLatestRelease = async () => {
@@ -153,9 +166,25 @@ export const DownloadSection = () => {
             <AlertTitle className="text-red-500 font-bold text-lg">Important for Mac Users</AlertTitle>
             <AlertDescription className="text-red-400 mt-2">
               After installation, please run this command in Terminal to use NeuroDB successfully:
-              <code className="block mt-3 p-3 bg-gray-800/80 rounded-md text-gray-200 font-mono text-sm border border-gray-600">
-                sudo xattr -rd com.apple.quarantine /Applications/NeuroDB.app
-              </code>
+              <div className="mt-3 flex items-center gap-2 p-3 bg-gray-800/80 rounded-md border border-gray-600">
+                <code className="flex-1 text-gray-200 font-mono text-sm break-all">
+                  {XATTR_COMMAND}
+                </code>
+                <Button
+                  type="button"
+                  size="icon"
+                  variant="ghost"
+                  className="h-8 w-8 shrink-0 text-gray-300 hover:text-white hover:bg-gray-700"
+                  onClick={handleCopyCommand}
+                  aria-label="Copy command to clipboard"
+                >
+                  {isCopied ? (
+                    <Check className="h-4 w-4 text-green-400" />
+                  ) : (
+                    <Copy className="h-4 w-4" />
+                  )}
+                </Button>
+              </div>
             </AlertDescription>
           </Alert>
         </div>
