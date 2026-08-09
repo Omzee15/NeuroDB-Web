@@ -5,6 +5,7 @@ import { Monitor, Apple, Terminal, Download, Cpu, AlertTriangle, Copy, Check } f
 import { useState, useEffect } from "react";
 
 const XATTR_COMMAND = "sudo xattr -rd com.apple.quarantine /Applications/NeuroDB.app";
+const BREW_COMMANDS = "brew tap omzee15/neurodb\nbrew install --cask neurodb";
 
 interface GitHubAsset {
   name: string;
@@ -25,16 +26,20 @@ export const DownloadSection = () => {
   } | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isCopied, setIsCopied] = useState(false);
+  const [isBrewCopied, setIsBrewCopied] = useState(false);
 
-  const handleCopyCommand = async () => {
+  const copyToClipboard = async (text: string, setCopied: (copied: boolean) => void) => {
     try {
-      await navigator.clipboard.writeText(XATTR_COMMAND);
-      setIsCopied(true);
-      setTimeout(() => setIsCopied(false), 2000);
+      await navigator.clipboard.writeText(text);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
     } catch (error) {
       console.error('Failed to copy command:', error);
     }
   };
+
+  const handleCopyCommand = () => copyToClipboard(XATTR_COMMAND, setIsCopied);
+  const handleCopyBrewCommand = () => copyToClipboard(BREW_COMMANDS, setIsBrewCopied);
 
   useEffect(() => {
     const fetchLatestRelease = async () => {
@@ -161,6 +166,36 @@ export const DownloadSection = () => {
         </div>
 
         <div className="mt-12 max-w-3xl mx-auto">
+          <Alert className="border-primary/30 bg-primary/5">
+            <Terminal className="h-5 w-5 text-primary" />
+            <AlertTitle className="text-primary font-bold text-lg">Prefer Homebrew? (macOS)</AlertTitle>
+            <AlertDescription className="text-muted-foreground mt-2">
+              Install NeuroDB from the terminal — no Gatekeeper step needed, Homebrew handles that for you.
+              New releases are picked up automatically with <code className="font-mono text-xs">brew upgrade</code>.
+              <div className="mt-3 flex items-center gap-2 p-3 bg-gray-800/80 rounded-md border border-gray-600">
+                <code className="flex-1 text-gray-200 font-mono text-sm break-all whitespace-pre-line">
+                  {BREW_COMMANDS}
+                </code>
+                <Button
+                  type="button"
+                  size="icon"
+                  variant="ghost"
+                  className="h-8 w-8 shrink-0 text-gray-300 hover:text-white hover:bg-gray-700"
+                  onClick={handleCopyBrewCommand}
+                  aria-label="Copy Homebrew commands to clipboard"
+                >
+                  {isBrewCopied ? (
+                    <Check className="h-4 w-4 text-green-400" />
+                  ) : (
+                    <Copy className="h-4 w-4" />
+                  )}
+                </Button>
+              </div>
+            </AlertDescription>
+          </Alert>
+        </div>
+
+        <div className="mt-6 max-w-3xl mx-auto">
           <Alert className="border-red-500 bg-red-500/10">
             <AlertTriangle className="h-5 w-5 text-red-500" />
             <AlertTitle className="text-red-500 font-bold text-lg">Important for Mac Users</AlertTitle>
