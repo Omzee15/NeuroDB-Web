@@ -23,6 +23,7 @@ export const DownloadSection = () => {
     macIntel: string;
     macAppleSilicon: string;
     linux: string;
+    linuxDeb: string;
   } | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isCopied, setIsCopied] = useState(false);
@@ -53,8 +54,9 @@ export const DownloadSection = () => {
           macIntel: assets.find(asset => asset.name.endsWith('.dmg') && !asset.name.includes('arm64'))?.browser_download_url || '#',
           macAppleSilicon: assets.find(asset => asset.name.includes('arm64') && asset.name.endsWith('.dmg'))?.browser_download_url || '#',
           linux: assets.find(asset => asset.name.endsWith('.AppImage'))?.browser_download_url || '#',
+          linuxDeb: assets.find(asset => asset.name.endsWith('.deb'))?.browser_download_url || '#',
         };
-        
+
         setDownloadLinks(links);
       } catch (error) {
         console.error('Failed to fetch latest release:', error);
@@ -64,6 +66,7 @@ export const DownloadSection = () => {
           macIntel: 'https://github.com/Omzee15/NeuroDB-releases/releases/latest',
           macAppleSilicon: 'https://github.com/Omzee15/NeuroDB-releases/releases/latest',
           linux: 'https://github.com/Omzee15/NeuroDB-releases/releases/latest',
+          linuxDeb: 'https://github.com/Omzee15/NeuroDB-releases/releases/latest',
         });
       } finally {
         setIsLoading(false);
@@ -92,9 +95,10 @@ export const DownloadSection = () => {
     {
       icon: Terminal,
       title: "Linux",
-      description: "For Ubuntu, Fedora, and more",
+      description: "For Ubuntu, Debian, Fedora, and more",
       fileType: ".AppImage",
       link: downloadLinks?.linux || '#',
+      isLinux: true,
     },
   ];
   return (
@@ -148,8 +152,31 @@ export const DownloadSection = () => {
                       </a>
                     </Button>
                   </div>
+                ) : download.isLinux ? (
+                  <div className="space-y-3">
+                    <Button
+                      className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-semibold transition-smooth glow-subtle hover:glow-primary"
+                      asChild
+                      disabled={isLoading || !downloadLinks?.linux || downloadLinks.linux === '#'}
+                    >
+                      <a href={downloadLinks?.linux || '#'}>
+                        <Download className="mr-2 h-4 w-4" />
+                        {isLoading ? 'Loading...' : 'Download .AppImage'}
+                      </a>
+                    </Button>
+                    <Button
+                      className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-semibold transition-smooth glow-subtle hover:glow-primary"
+                      asChild
+                      disabled={isLoading || !downloadLinks?.linuxDeb || downloadLinks.linuxDeb === '#'}
+                    >
+                      <a href={downloadLinks?.linuxDeb || '#'}>
+                        <Download className="mr-2 h-4 w-4" />
+                        {isLoading ? 'Loading...' : 'Download .deb'}
+                      </a>
+                    </Button>
+                  </div>
                 ) : (
-                  <Button 
+                  <Button
                     className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-semibold transition-smooth glow-subtle hover:glow-primary"
                     asChild
                     disabled={isLoading || download.link === '#'}
