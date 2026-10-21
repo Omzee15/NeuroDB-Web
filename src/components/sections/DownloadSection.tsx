@@ -4,6 +4,8 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Monitor, Apple, Terminal, Download, Cpu, Copy, Check } from "lucide-react";
 import { useState, useEffect } from "react";
 
+// Flip to true once the Homebrew tap is being updated automatically again.
+const SHOW_HOMEBREW = false;
 const BREW_COMMANDS = "brew tap omzee15/neurodb\nbrew install --cask neurodb";
 
 interface GitHubAsset {
@@ -189,35 +191,37 @@ export const DownloadSection = () => {
           ))}
         </div>
 
-        <div className="mt-12 max-w-3xl mx-auto">
-          <Alert className="border-primary/30 bg-primary/5">
-            <Terminal className="h-5 w-5 text-primary" />
-            <AlertTitle className="text-primary font-bold text-lg">Prefer Homebrew? (macOS)</AlertTitle>
-            <AlertDescription className="text-muted-foreground mt-2">
-              Install NeuroDB from the terminal — no Gatekeeper step needed, Homebrew handles that for you.
-              New releases are picked up automatically with <code className="font-mono text-xs">brew upgrade</code>.
-              <div className="mt-3 flex items-center gap-2 p-3 bg-gray-800/80 rounded-md border border-gray-600">
-                <code className="flex-1 text-gray-200 font-mono text-sm break-all whitespace-pre-line">
-                  {BREW_COMMANDS}
-                </code>
-                <Button
-                  type="button"
-                  size="icon"
-                  variant="ghost"
-                  className="h-8 w-8 shrink-0 text-gray-300 hover:text-white hover:bg-gray-700"
-                  onClick={handleCopyBrewCommand}
-                  aria-label="Copy Homebrew commands to clipboard"
-                >
-                  {isBrewCopied ? (
-                    <Check className="h-4 w-4 text-green-400" />
-                  ) : (
-                    <Copy className="h-4 w-4" />
-                  )}
-                </Button>
-              </div>
-            </AlertDescription>
-          </Alert>
-        </div>
+        {SHOW_HOMEBREW && (
+          <div className="mt-12 max-w-3xl mx-auto">
+            <Alert className="border-primary/30 bg-primary/5">
+              <Terminal className="h-5 w-5 text-primary" />
+              <AlertTitle className="text-primary font-bold text-lg">Prefer Homebrew? (macOS)</AlertTitle>
+              <AlertDescription className="text-muted-foreground mt-2">
+                Install NeuroDB from the terminal — no Gatekeeper step needed, Homebrew handles that for you.
+                New releases are picked up automatically with <code className="font-mono text-xs">brew upgrade</code>.
+                <div className="mt-3 flex items-center gap-2 p-3 bg-gray-800/80 rounded-md border border-gray-600">
+                  <code className="flex-1 text-gray-200 font-mono text-sm break-all whitespace-pre-line">
+                    {BREW_COMMANDS}
+                  </code>
+                  <Button
+                    type="button"
+                    size="icon"
+                    variant="ghost"
+                    className="h-8 w-8 shrink-0 text-gray-300 hover:text-white hover:bg-gray-700"
+                    onClick={handleCopyBrewCommand}
+                    aria-label="Copy Homebrew commands to clipboard"
+                  >
+                    {isBrewCopied ? (
+                      <Check className="h-4 w-4 text-green-400" />
+                    ) : (
+                      <Copy className="h-4 w-4" />
+                    )}
+                  </Button>
+                </div>
+              </AlertDescription>
+            </Alert>
+          </div>
+        )}
 
         <div className="mt-12 text-center">
           <p className="text-sm text-muted-foreground">
