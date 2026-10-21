@@ -1,10 +1,9 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { Monitor, Apple, Terminal, Download, Cpu, AlertTriangle, Copy, Check } from "lucide-react";
+import { Monitor, Apple, Terminal, Download, Cpu, Copy, Check } from "lucide-react";
 import { useState, useEffect } from "react";
 
-const XATTR_COMMAND = "sudo xattr -rd com.apple.quarantine /Applications/NeuroDB.app";
 const BREW_COMMANDS = "brew tap omzee15/neurodb\nbrew install --cask neurodb";
 
 interface GitHubAsset {
@@ -26,7 +25,6 @@ export const DownloadSection = () => {
     linuxDeb: string;
   } | null>(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [isCopied, setIsCopied] = useState(false);
   const [isBrewCopied, setIsBrewCopied] = useState(false);
 
   const copyToClipboard = async (text: string, setCopied: (copied: boolean) => void) => {
@@ -39,7 +37,6 @@ export const DownloadSection = () => {
     }
   };
 
-  const handleCopyCommand = () => copyToClipboard(XATTR_COMMAND, setIsCopied);
   const handleCopyBrewCommand = () => copyToClipboard(BREW_COMMANDS, setIsBrewCopied);
 
   useEffect(() => {
@@ -212,35 +209,6 @@ export const DownloadSection = () => {
                   aria-label="Copy Homebrew commands to clipboard"
                 >
                   {isBrewCopied ? (
-                    <Check className="h-4 w-4 text-green-400" />
-                  ) : (
-                    <Copy className="h-4 w-4" />
-                  )}
-                </Button>
-              </div>
-            </AlertDescription>
-          </Alert>
-        </div>
-
-        <div className="mt-6 max-w-3xl mx-auto">
-          <Alert className="border-red-500 bg-red-500/10">
-            <AlertTriangle className="h-5 w-5 text-red-500" />
-            <AlertTitle className="text-red-500 font-bold text-lg">Important for Mac Users</AlertTitle>
-            <AlertDescription className="text-red-400 mt-2">
-              After installation, please run this command in Terminal to use NeuroDB successfully:
-              <div className="mt-3 flex items-center gap-2 p-3 bg-gray-800/80 rounded-md border border-gray-600">
-                <code className="flex-1 text-gray-200 font-mono text-sm break-all">
-                  {XATTR_COMMAND}
-                </code>
-                <Button
-                  type="button"
-                  size="icon"
-                  variant="ghost"
-                  className="h-8 w-8 shrink-0 text-gray-300 hover:text-white hover:bg-gray-700"
-                  onClick={handleCopyCommand}
-                  aria-label="Copy command to clipboard"
-                >
-                  {isCopied ? (
                     <Check className="h-4 w-4 text-green-400" />
                   ) : (
                     <Copy className="h-4 w-4" />
